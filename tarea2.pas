@@ -176,6 +176,7 @@ Begin
                i := i + 1;
              End;
 
+
     //Si el elemento mas chico es menor que el que quiero insertar, lo reemplazo
            If mayorPalabraCant(pc, min) Then
              Begin
@@ -203,15 +204,13 @@ Procedure obtenerAlternativas(p: Palabra; pred: Predictor; Var alts:
 Var 
   actual: Ocurrencias;
 Begin
-
   // Inicializar alts
   alts.tope := 0;
-
   // Obtener lista de ocurrencias para la palabra p
   actual := pred[hash(SEMILLA, PASO, MAXHASH, p)];
 
   // Recorrer la lista de ocurrencias
-  While (actual <> Nil) And (alts.tope < MAXALTS) Do
+  While (actual <> Nil) And (alts.tope <= MAXALTS) Do
     Begin
 
       // Insertar cada ocurrencia en alts usando insOrdAlternativas  
