@@ -12743,22 +12743,22 @@ Ingrese Opción
 [0=fin, 1=hash, 2=comparaPalabra, 3=mayorPalabraCant, 4=agregarOcurrencia]
 [5=inicializarPredictor, 6=entrenarPredictor, 7=insOrdAlternativas, 8=obtenerAlternativas]
 obtenerAlternativas:Ingrese palabra
--(mas,25)-(tres,6)-(fiestas,4)
+-(manos,63)-(armas,49)-(que,44)
 Ingrese Opción
 [0=fin, 1=hash, 2=comparaPalabra, 3=mayorPalabraCant, 4=agregarOcurrencia]
 [5=inicializarPredictor, 6=entrenarPredictor, 7=insOrdAlternativas, 8=obtenerAlternativas]
 obtenerAlternativas:Ingrese palabra
--(resto,3)-(sobrenombre,2)-(rocin,2)
+-(cura,204)-(que,155)-(cual,150)
 Ingrese Opción
 [0=fin, 1=hash, 2=comparaPalabra, 3=mayorPalabraCant, 4=agregarOcurrencia]
 [5=inicializarPredictor, 6=entrenarPredictor, 7=insOrdAlternativas, 8=obtenerAlternativas]
 obtenerAlternativas:Ingrese palabra
--(lugar,16)-(mozo,13)-(hidalgo,1)
+-(poco,61)-(hombre,27)-(buen,22)
 Ingrese Opción
 [0=fin, 1=hash, 2=comparaPalabra, 3=mayorPalabraCant, 4=agregarOcurrencia]
 [5=inicializarPredictor, 6=entrenarPredictor, 7=insOrdAlternativas, 8=obtenerAlternativas]
 obtenerAlternativas:Ingrese palabra
--(panza,111)-(del,3)-(bienaya,1)
+-(panza,111)-(que,110)-(y,53)
 Ingrese Opción
 [0=fin, 1=hash, 2=comparaPalabra, 3=mayorPalabraCant, 4=agregarOcurrencia]
 [5=inicializarPredictor, 6=entrenarPredictor, 7=insOrdAlternativas, 8=obtenerAlternativas]
