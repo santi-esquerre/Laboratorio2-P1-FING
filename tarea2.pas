@@ -1,3 +1,44 @@
+Procedure borrar_ocurrencia(Var l : Ocurrencias);
+
+Var 
+  p: Ocurrencias;
+Begin
+  While l <> Nil Do
+    Begin
+      p := l;
+      l := l^.sig;
+      dispose(p);
+    End;
+End;
+
+Procedure agregarPalabraAlFinal(Var l: Ocurrencias; pa: Palabra);
+
+Var p,q : Ocurrencias;
+  palcant : PalabraCant;
+Begin
+  palcant.pal := pa;
+  palcant.cant := 1;
+
+  new(p);
+  //crear nueva celda
+  p^.palc := palcant;
+  //cargar el elemento
+  p^.sig := Nil;
+  //es el último
+
+  If l = Nil Then
+    l := p
+  Else
+    Begin
+      //busco el último de l
+      q := l;
+      While q^.sig <> Nil Do
+        q := q^.sig;
+      //engancho p a continuacion del último
+      q^.sig := p;
+    End;
+End;
+
 
 Function hash ( semilla, paso, N : Natural; p : Palabra ) : Natural;
 
@@ -49,10 +90,9 @@ Procedure agregarOcurrencia (p : Palabra; Var pals : Ocurrencias);
 
 Var 
   encontrado: boolean;
-  anterior, actual: Ocurrencias;
+  actual: Ocurrencias;
 Begin
   encontrado := false;
-  anterior := Nil;
   actual := pals;
   While (actual <> Nil) And Not encontrado Do
     Begin
@@ -63,22 +103,11 @@ Begin
         End
       Else
         Begin
-          anterior := actual;
           actual := actual^.sig;
         End;
     End;
   If Not encontrado Then
-    Begin
-      new(actual);
-      actual^.palc.pal := p;
-      actual^.palc.cant := 1;
-      If anterior = Nil Then
-
-        pals := actual
-      Else
-        anterior^.sig := actual;
-      actual^.sig := Nil;
-    End;
+    agregarPalabraAlFinal(pals, p);
 End;
 
 
@@ -88,7 +117,7 @@ Var
   i: integer;
 Begin
   For i := 1 To MAXHASH Do
-    pred[i] := Nil;
+    borrar_ocurrencia(pred[i]);
 End;
 
 Procedure entrenarPredictor(txt: Texto; Var pred: Predictor);
@@ -110,9 +139,8 @@ End;
 Procedure insOrdAlternativas(pc: PalabraCant; Var alts: Alternativas);
 
 Var 
-  i, j: integer;
-  menorEncontrado : boolean;
-  temp: PalabraCant;
+  i, j, minIndex: integer;
+  temp, min: PalabraCant;
 Begin
   If alts.tope < MAXALTS Then
     Begin
@@ -133,26 +161,28 @@ Begin
     End
   Else If alts.tope = MAXALTS Then
          Begin
+           i := 2;
+           min := alts.pals[1];
+           minIndex := 1;
 
-
-
-
-
-       // Si alts ya está lleno, busca el elemento más pequeño y reemplázalo
-           menorEncontrado := False;
-           i := 1;
-           While (i <= alts.tope) And Not menorEncontrado Do
+           //Obtengo elemento mas chico
+           While (i <= alts.tope) Do
              Begin
-               If mayorPalabraCant(pc, alts.pals[i]) Then
+               If  mayorPalabraCant(min, alts.pals[i]) Then
                  Begin
-                   // Reemplaza el menor con pc
-                   alts.pals[i] := pc;
-                   menorEncontrado := True;
+                   min := alts.pals[i];
+                   minIndex := i;
                  End;
                i := i + 1;
              End;
 
-           // Ordena la lista nuevamente
+    //Si el elemento mas chico es menor que el que quiero insertar, lo reemplazo
+           If mayorPalabraCant(pc, min) Then
+             Begin
+               alts.pals[minIndex] := pc;
+             End;
+
+           //Ordena la lista nuevamente
            For i := 1 To alts.tope - 1 Do
              For j := i + 1 To alts.tope Do
                If Not mayorPalabraCant(alts.pals[i], alts.pals[j]) Then
@@ -162,8 +192,6 @@ Begin
                    alts.pals[i] := alts.pals[j];
                    alts.pals[j] := temp;
                  End;
-
-
          End;
 End;
 
